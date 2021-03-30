@@ -72,15 +72,3 @@ class TestCity(unittest.TestCase):
     def test_City_sa_instance_state(self):
         """ test is _sa_instance_state has been removed """
         self.assertNotIn('_sa_instance_state', self.city.to_dict())
-
-    def test_City_pep8(self):
-        """check for pep8 """
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["models/city.py"])
-        self.assertEqual(p.total_errors, 0, 'fix Pep8')
-
-    def test_City_pep8(self):
-        """check for pep8 """
-        style = pep8.StyleGuide(quiet=True)
-        p = style.check_files(["models/city.py"])
-        self.assertEqual(p.total_errors, 0, 'fix Pep8')
