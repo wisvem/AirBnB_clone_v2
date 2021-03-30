@@ -53,3 +53,36 @@ class Test_console(unittest.TestCase):
             _id = f.getvalue().strip()
             key = "State" + "." + _id
             self.assertTrue(key in storage.all().keys())
+
+    def test_create2(self):
+        """Test for create command 2
+        """
+        with patch('sys.stdout', new=StringIO()) as f:
+            state = State()
+            command = "create City name=\"Texas\" state_id=\"{}\"".format(
+                state.id)
+            HBNBCommand().onecmd(command)
+            _id = f.getvalue().strip()
+            key = "City" + "." + _id
+            nname = storage.all()[key].name
+            sid = storage.all()[key].state_id
+            self.assertTrue(key in storage.all().keys())
+            self.assertEqual('Texas', nname)
+            self.assertEqual(state.id, sid)
+
+    def test_create3(self):
+        """Test for create command 2
+        """
+        with patch('sys.stdout', new=StringIO()) as f:
+            state = State(name='Poloombia')
+            command = "create City name=\"Tex_as\" state_id=\"{}\"".format(
+                state.id)
+            HBNBCommand().onecmd(command)
+            _id = f.getvalue().strip()
+            key = "City" + "." + _id
+            nname = storage.all()[key].name
+            sid = storage.all()[key].state_id
+            self.assertTrue(key in storage.all().keys())
+            self.assertEqual('Tex as', nname)
+            self.assertEqual(state.id, sid)
+            self.assertEqual('Poloombia', state.name)
