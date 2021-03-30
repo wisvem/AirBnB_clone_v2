@@ -2,7 +2,7 @@
 """ Place Module for HBNB project """
 import models
 from models.base_model import BaseModel, Base
-from models.amenity import Amenity
+# from models.amenity import Amenity
 from models.review import Review
 from sqlalchemy import Table, Column, Integer, Float, String, ForeignKey
 from os import getenv
@@ -54,7 +54,7 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             """Getter of reviews attribute"""
-            reviews_dict = models.FileStorage.all(Review)
+            reviews_dict = models.storage.all(Review)
             reviews_list = []
             for review in reviews_dict.values():
                 if (review.place_id == self.id):
@@ -64,12 +64,12 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """Getter of amenities attribute"""
-            amenities_dict = models.FileStorage.all(Amenity)
-            amenities_list = []
+            amenities_dict = models.storage.all(Amenity)
+            place_amenities = []
             for amenity in amenities_dict.values():
-                if (amenity.id == self.amenity_ids):
-                    amenities_list.append(amenity)
-            return amenities_list
+                if (self.id == amenity.place_id):
+                    place_amenities.append(amenity)
+            return place_amenities
 
         @amenities.setter
         def amenities(self, obj):
