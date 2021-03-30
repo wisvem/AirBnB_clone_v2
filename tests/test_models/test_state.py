@@ -53,13 +53,3 @@ class test_statev2(unittest.TestCase):
         state_dict = state.to_dict()
         self.assertTrue(type(state_dict) is dict)
         self.assertFalse("_sa_instance_state" in state_dict)
-
-    def test005(self):
-        """ Check save() """
-        state = State()
-        state.save()
-        self.assertNotEqual(state.created_at, state.updated_at)
-
-    def test007(self):
-        """ Another test"""
-        self.assertEqual(1, 0)
