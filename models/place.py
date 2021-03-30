@@ -10,9 +10,8 @@ from sqlalchemy.orm import relationship
 
 type_storage = getenv('HBNB_TYPE_STORAGE')
 place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60),
-                             ForeignKey('places.id'), primary_key=True,
-                             nullable=False),
+                      Column('place_id', String(60), ForeignKey('places.id'),
+                             primary_key=True, nullable=False),
                       Column('amenity_id', String(60),
                              ForeignKey('amenities.id'),
                              primary_key=True, nullable=False))
@@ -21,7 +20,6 @@ place_amenity = Table('place_amenity', Base.metadata,
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
-    amenity_ids = []
     if type_storage == 'db':
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -33,10 +31,10 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float)
         longitude = Column(Float)
-        reviews = relationship('Review', backref='place',
-                               cascade='all, delete')
+        reviews = relationship('Review', backref='place', cascade='all,delete')
         amenities = relationship('Amenity', secondary=place_amenity,
-                                 viewonly=False)
+                                 viewonly=False,
+                                 back_populates='place_amenities')
     else:
         city_id = ""
         user_id = ""
@@ -48,8 +46,7 @@ class Place(BaseModel, Base):
         price_by_night = 0
         latitude = 0.0
         longitude = 0.0
-        reviews = []
-        amenities = []
+        amenity_ids = []
 
         @property
         def reviews(self):
@@ -64,15 +61,10 @@ class Place(BaseModel, Base):
         @property
         def amenities(self):
             """Getter of amenities attribute"""
-            amenities_dict = models.storage.all(Amenity)
-            place_amenities = []
-            for amenity in amenities_dict.values():
-                if (self.id == amenity.place_id):
-                    place_amenities.append(amenity)
-            return place_amenities
+            return self.amenity_ids
 
         @amenities.setter
         def amenities(self, obj):
             """Setter of amenities attribute"""
-            if obj.__class__.__name__ == 'Amenity':
+            if self.__class__.__name__ == 'Amenity':
                 self.amenity_ids.append(obj.id)
