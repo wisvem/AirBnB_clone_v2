@@ -78,3 +78,9 @@ class TestCity(unittest.TestCase):
         style = pep8.StyleGuide(quiet=True)
         p = style.check_files(["models/city.py"])
         self.assertEqual(p.total_errors, 0, 'fix Pep8')
+
+    def test_City_pep8(self):
+        """check for pep8 """
+        style = pep8.StyleGuide(quiet=True)
+        p = style.check_files(["models/city.py"])
+        self.assertEqual(p.total_errors, 0, 'fix Pep8')
