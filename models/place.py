@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
+import models
 from models.base_model import BaseModel, Base
 from models.amenity import Amenity
 from models.review import Review
@@ -13,8 +14,8 @@ place_amenity = Table('place_amenity', Base.metadata,
                              ForeignKey('places.id'), primary_key=True,
                              nullable=False),
                       Column('amenity_id', String(60),
-                             ForeignKey('amenities.id'), primary_key=True,
-                             nullable=False))
+                             ForeignKey('amenities.id'),
+                             primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
