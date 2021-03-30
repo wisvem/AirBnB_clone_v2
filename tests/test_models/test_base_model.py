@@ -135,7 +135,3 @@ class test_base_model_v2(unittest.TestCase):
         base.save()
         base.delete()
         self.assertEqual(1, 1)
-    
-    def test007(self):
-        """ Another test"""
-        self.assertEqual(1, 0)
