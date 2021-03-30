@@ -35,7 +35,7 @@ class Place(BaseModel, Base):
         longitude = Column(Float)
         reviews = relationship('Review', backref='place',
                                cascade='all, delete')
-        amenities = relationship('Amenity', secondary='place_amenity',
+        amenities = relationship('Amenity', secondary=place_amenity,
                                  viewonly=False)
     else:
         city_id = ""
@@ -74,5 +74,5 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj):
             """Setter of amenities attribute"""
-            if type(obj) == Amenity:
+            if obj.__class__.__name__ == 'Amenity':
                 self.amenity_ids.append(obj.id)
