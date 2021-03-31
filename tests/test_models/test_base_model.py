@@ -137,12 +137,6 @@ class test_base_model_v2(unittest.TestCase):
         base.delete()
         self.assertEqual(1, 1)
 
-    def test_str(self):
-        """ """
-        i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
-
 
 @unittest.skipIf(type_storage != "db", "For DB")
 class TestBaseModel(unittest.TestCase):

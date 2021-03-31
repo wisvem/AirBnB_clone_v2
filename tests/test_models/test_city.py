@@ -18,12 +18,6 @@ class test_City(test_basemodel):
         self.name = "City"
         self.value = City
 
-    def test_str(self):
-        """ """
-        i = self.value()
-        self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
-
     @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_state_id(self):
         """ """
