@@ -136,3 +136,49 @@ class test_base_model_v2(unittest.TestCase):
         base.save()
         base.delete()
         self.assertEqual(1, 1)
+
+
+@unittest.skipIf(type_storage != "db", "For DB")
+class TestBaseModel(unittest.TestCase):
+    """ a class for testing the base model """
+
+    @classmethod
+    def setUpClass(cls):
+        """ Example Data """
+        cls.base = BaseModel()
+        cls.base.name = "Tabs"
+        cls.base.id = "1234"
+
+    @classmethod
+    def teardown(cls):
+        """ tear down cls """
+        del cls.base
+
+    def tearDown(self):
+        """ tear down for file storage """
+        try:
+            os.remove("file.json")
+        except Exception:
+            pass
+
+    def test_BaseModel_methods(self):
+        """ Check if Basemodel has methods"""
+        self.assertTrue(hasattr(BaseModel, "__init__"))
+        self.assertTrue(hasattr(BaseModel, "__str__"))
+        self.assertTrue(hasattr(BaseModel, "save"))
+        self.assertTrue(hasattr(BaseModel, "delete"))
+        self.assertTrue(hasattr(BaseModel, "to_dict"))
+
+    def test_BaseModel_type(self):
+        """test if the base is an type BaseModel"""
+        self.assertTrue(isinstance(self.base, BaseModel))
+
+    def test_to_dict(self):
+        """ test for to_dict """
+        base_dict = self.base.to_dict()
+        self.assertEqual(self.base.__class__.__name__, 'BaseModel')
+        self.assertEqual(base_dict['created_at'],
+                         self.base.created_at.isoformat())
+        self.assertEqual(base_dict['updated_at'],
+                         self.base.updated_at.isoformat())
+        self.assertRaises(KeyError, lambda: base_dict['_sa_instance_state'])

@@ -144,7 +144,7 @@ class TestPlace(unittest.TestCase):
         """ test if Place is subclass of BaseModel """
         self.assertTrue(issubclass(self.place.__class__, BaseModel), True)
 
-    @unittest.skipIf(os.getenv("HBNB_TYPE_STORAGE") == "db", "Place won't\
+    @unittest.skipIf(type_storage == "db", "Place won't\
                      save because it needs to be tied to a User and State :\\")
     def test_Place_save(self):
         """ test save() command """
