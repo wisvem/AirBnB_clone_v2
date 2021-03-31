@@ -8,7 +8,7 @@ type_storage = os.getenv('HBNB_TYPE_STORAGE')
 
 
 class test_review(test_basemodel):
-    """ """
+    """ Class test review """
 
     def __init__(self, *args, **kwargs):
         """ """

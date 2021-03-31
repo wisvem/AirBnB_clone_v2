@@ -46,6 +46,7 @@ class TestCity(unittest.TestCase):
         del cls.city
 
     def tearDown(self):
+        """ teard dsdmd """
         try:
             os.remove('file.json')
         except FileNotFoundError:

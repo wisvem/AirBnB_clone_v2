@@ -110,6 +110,7 @@ class TestPlace(unittest.TestCase):
         del cls.state
 
     def tearDown(self):
+        """ """
         try:
             os.remove('file.json')
         except FileNotFoundError:
