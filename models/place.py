@@ -20,7 +20,6 @@ place_amenity = Table('place_amenity', Base.metadata,
 class Place(BaseModel, Base):
     """ A place to stay """
     __tablename__ = 'places'
-    amenity_ids = []
     if type_storage == 'db':
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
@@ -37,6 +36,7 @@ class Place(BaseModel, Base):
                                  viewonly=False,
                                  back_populates='place_amenities')
     else:
+        amenity_ids = []
         city_id = ""
         user_id = ""
         name = ""
