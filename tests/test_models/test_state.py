@@ -25,33 +25,40 @@ class test_state(test_basemodel):
         self.assertEqual(type(new.name), str)
 
 
-class test_statev2(unittest.TestCase):
-    """ Class test state"""
+class TestState(unittest.TestCase):
 
-    def test001(self):
-        """Check if State is child of BaseModel"""
-        state = State()
-        self.assertIsInstance(state, BaseModel)
+    @classmethod
+    def setUpClass(cls):
+        cls.state1 = State()
+        cls.state1.name = "CA_the_golden_state"
 
-    @unittest.skipIf(type_storage == 'db', "No apply for db")
-    def test002(self):
-        """ Check State default attributes """
-        state = State()
-        self.assertTrue(hasattr(state, "id"))
-        self.assertTrue(hasattr(state, "created_at"))
-        self.assertTrue(hasattr(state, "updated_at"))
-        self.assertTrue(hasattr(state, "name"))
-        self.assertTrue(state.name == "")
+    @classmethod
+    def tearDownClass(cls):
+        del cls.state1
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
 
-    def test003(self):
-        """ Check State when type storage is db"""
-        state = State()
-        if (type_storage == 'db'):
-            self.assertTrue(state.name is None)
+    def test_is_subclass(self):
+        self.assertTrue(issubclass(self.state1.__class__, BaseModel), True)
 
-    def test004(self):
-        """ Check to_dict() function """
-        state = State()
-        state_dict = state.to_dict()
-        self.assertTrue(type(state_dict) is dict)
-        self.assertFalse("_sa_instance_state" in state_dict)
+    def test_checking_for_functions(self):
+        self.assertIsNotNone(State.__doc__)
+
+    def test_has_attributes(self):
+        self.assertTrue('id' in self.state1.__dict__)
+        self.assertTrue('created_at' in self.state1.__dict__)
+        self.assertTrue('updated_at' in self.state1.__dict__)
+        self.assertTrue('name' in self.state1.__dict__)
+
+    def test_attributes_are_strings(self):
+        self.assertEqual(type(self.state1.name), str)
+
+    @unittest.skipIf(type_storage == 'db', "not for db")
+    def test_save(self):
+        self.state1.save()
+        self.assertNotEqual(self.state1.created_at, self.state1.updated_at)
+
+    def test_to_dict(self):
+        self.assertEqual('to_dict' in dir(self.state1), True)
