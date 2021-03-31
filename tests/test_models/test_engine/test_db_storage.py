@@ -14,6 +14,10 @@ type_storage = os.getenv('HBNB_TYPE_STORAGE')
 class TestDataBase(unittest.TestCase):
     """this will test the console"""
 
+    def test001(self):
+        """ Test pass """
+        pass
+
     @classmethod
     def setUp(self):
         """Set up MySQL"""
