@@ -4,6 +4,9 @@ from tests.test_models.test_base_model import test_basemodel
 from models.amenity import Amenity
 import unittest
 from models.base_model import BaseModel
+import os
+type_storage = os.getenv('HBNB_TYPE_STORAGE')
+
 
 class test_Amenity(test_basemodel):
     """ """
@@ -14,6 +17,7 @@ class test_Amenity(test_basemodel):
         self.name = "Amenity"
         self.value = Amenity
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_name2(self):
         """ """
         new = self.value()
@@ -56,6 +60,7 @@ class TestAmenity(unittest.TestCase):
         """test attribute type for Amenity"""
         self.assertEqual(type(self.amenity.name), str)
 
+    @unittest.skipIf(type_storage == 'db', "test not possible")
     def test_save_Amenity(self):
         """test if the save works"""
         self.amenity.save()

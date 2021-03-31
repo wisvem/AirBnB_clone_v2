@@ -18,6 +18,7 @@ class test_state(test_basemodel):
         self.name = "State"
         self.value = State
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_name3(self):
         """ """
         new = self.value()
@@ -32,6 +33,7 @@ class test_statev2(unittest.TestCase):
         state = State()
         self.assertIsInstance(state, BaseModel)
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test002(self):
         """ Check State default attributes """
         state = State()
@@ -39,7 +41,7 @@ class test_statev2(unittest.TestCase):
         self.assertTrue(hasattr(state, "created_at"))
         self.assertTrue(hasattr(state, "updated_at"))
         self.assertTrue(hasattr(state, "name"))
-        self.assertTrue(state.name is "")
+        self.assertTrue(state.name == "")
 
     def test003(self):
         """ Check State when type storage is db"""

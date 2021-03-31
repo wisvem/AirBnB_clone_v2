@@ -29,7 +29,7 @@ class DBStorage:
         """DBStorage constructor"""
         self.__engine = DBStorage.connection()
         if (env == 'test'):
-            Base.metadata.drop_all(self.engine)
+            Base.metadata.drop_all(self.__engine)
 
     @staticmethod
     def connection():

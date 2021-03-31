@@ -18,11 +18,13 @@ class test_City(test_basemodel):
         self.name = "City"
         self.value = City
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_state_id(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.state_id), str)
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_name(self):
         """ """
         new = self.value()

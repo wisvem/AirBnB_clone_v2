@@ -49,6 +49,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(type_storage == 'db', "No apply for db")
     def test_save(self):
         """ Testing save """
         i = self.value()
@@ -92,7 +93,6 @@ class test_basemodel(unittest.TestCase):
         self.assertEqual(type(new.updated_at), datetime.datetime)
         n = new.to_dict()
         new = BaseModel(**n)
-        new.save()
         self.assertFalse(new.created_at == new.updated_at)
 
     def test_save_BaseModeldb(self):
@@ -122,13 +122,14 @@ class test_base_model_v2(unittest.TestCase):
         self.assertTrue(type(city_dict) is dict)
         self.assertFalse("_sa_instance_state" in city_dict)
 
-    @unittest.skipIf(type_storage != 'db', "test not possible")
+    @unittest.skipIf(type_storage == 'db', "test not possible")
     def test005(self):
         """ Check save() """
         city = BaseModel()
         city.save()
         self.assertNotEqual(city.created_at, city.updated_at)
 
+    @unittest.skipIf(type_storage == 'db', "test not possible")
     def test006(self):
         """ Check delete """
         base = BaseModel()
