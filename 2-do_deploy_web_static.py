@@ -7,7 +7,7 @@ from fabric.operations import put
 from datetime import datetime
 
 
-env.hosts = ['wisvem.tech', 'ws2.wisvem.tech']
+env.hosts = ['web-01.wisvem.tech', 'web-02.wisvem.tech']
 # env.hosts = ['e98e448bd522@7e5652f1.hbtn-cod.io:22']
 # env.passwords = {'e98e448bd522@7e5652f1.hbtn-cod.io:22':\
 #  'f372b89afe065fa3d645'}
