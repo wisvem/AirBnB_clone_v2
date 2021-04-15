@@ -6,13 +6,12 @@ package { 'nginx':
 }
 
 -> file { '/data':
-  ensure  => directory,
+  ensure  => directory
 }
 
 # create direcotries /data/web_static/shared/
 -> file { '/data/web_static':
-  ensure => directory,
-  owner  => 'ubuntu'
+  ensure => directory
 }
 
 # create direcotries /data/web_static/shared/
@@ -27,12 +26,12 @@ package { 'nginx':
 
 # create direcotries /data/web_static/shared/
 -> file { '/data/web_static/releases/test':
-  ensure => directory,
+  ensure => directory
 }
 
 -> file { '/data/web_static/releases/test/index.html':
   ensure  => present,
-  content => 'Holberton School',
+  content => 'Holberton School'
 }
 
 -> exec { 'symbolik link':
@@ -43,7 +42,7 @@ package { 'nginx':
 
 -> exec { 'Set permission':
   command  => 'chown -R ubuntu:ubuntu /data/',
-  user     => 'root'
+  user     => 'root',
   provider => 'shell'
 }
 -> exec { 'Added location':
