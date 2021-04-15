@@ -54,5 +54,4 @@ def do_deploy(archive_path):
 
 def deploy():
     """ Deploy """
-    r = do_pack()
-    return do_deploy(r)
+    return do_deploy(do_pack())
