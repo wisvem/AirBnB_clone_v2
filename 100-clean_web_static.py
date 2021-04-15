@@ -59,17 +59,17 @@ def deploy():
 
 def do_clean(number=0):
     """ Do clean """
-    if (int(number) >= 0):
-        try:
+    try:
+        if (int(number) >= 0):
             if (int(number) < 2):
                 number = 2
             else:
                 number = int(number)+1
-        except:
-            return None
         r_path = "/data/web_static/releases/"
         l_path = "./versions"
         with cd(r_path):
             run("ls -t | tail -n +{} | xargs rm -rf --".format(number))
         with lcd(l_path):
             local("ls -t | tail -n +{} | xargs rm -rf --".format(number))
+    except:
+        return None
