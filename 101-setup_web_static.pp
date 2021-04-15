@@ -5,14 +5,35 @@ package { 'nginx':
   provider => 'apt'
 }
 ->
+file { '/data':
+  ensure  => directory,
+  owner   => 'ubuntu',
+  group   => 'ubuntu',
+  recurse => true
+}
+->
+# create direcotries /data/web_static/shared/
+file { '/data/web_static/':
+  ensure => directory,
+  owner   => 'ubuntu'
+}
+->
 # create direcotries /data/web_static/shared/
 file { '/data/web_static/shared':
-  ensure => directory
+  ensure => directory,
+  owner   => 'ubuntu'
+}
+->
+# create direcotries /data/web_static/shared/
+file { '/data/web_static/releases/':
+  ensure => directory,
+  owner   => 'ubuntu'
 }
 ->
 # create direcotries /data/web_static/shared/
 file { '/data/web_static/releases/test':
-  ensure => directory
+  ensure => directory,
+  owner   => 'ubuntu'
 }
 ->
 file { '/data/web_static/releases/test/index.html':
@@ -23,16 +44,9 @@ file { '/data/web_static/releases/test/index.html':
 }
 ->
 exec { 'symbolik link':
-  command  => 'ln -sf /data/web_static/releases/test/ /data/web_static/current',
-  user     => 'root',
+  command  => 'ln -snf /data/web_static/releases/test/ /data/web_static/current',
+  user     => 'ubuntu',
   provider => 'shell'
-}
-->
-file { '/data':
-  ensure  => directory,
-  user    => 'ubuntu',
-  group   => 'ubuntu',
-  recurse => true
 }
 ->
 exec { 'Added location':
