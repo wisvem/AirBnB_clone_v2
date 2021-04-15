@@ -65,7 +65,7 @@ def do_clean(number=0):
         else:
             number = int(number)+1
         r_path = "/data/web_static/releases/"
-        l_path = "./versions/"
+        l_path = "./versions"
         with cd(r_path):
             run("ls -1t | tail -n +{} | xargs rm -rf --".format(number))
         with lcd(l_path):
