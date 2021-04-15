@@ -60,16 +60,20 @@ def deploy():
 def do_clean(number=0):
     """ Do clean """
     try:
-        if (int(number) >= 0):
-            if (int(number) < 2):
-                number = 2
-            else:
-                number = int(number)+1
-        r_path = "/data/web_static/releases/"
-        l_path = "./versions"
-        with cd(r_path):
-            run("ls -t | tail -n +{} | xargs rm -rf --".format(number))
-        with lcd(l_path):
-            local("ls -t | tail -n +{} | xargs rm -rf --".format(number))
+        number = int(number)
     except:
         return None
+    if number < 0:
+        return None
+    if (number is 0 or number is 1):
+        number = 2
+    else:
+        number += 1
+    r_path = "/data/web_static/releases/"
+    l_path = "./versions"
+    with lcd(l_path):
+        local('ls -t | tail -n +{} | xargs rm -rf --'.
+              format(number))
+    with cd(r_path):
+        run('ls -t | tail -n +{} | xargs rm -rf --'.
+            format(number))
