@@ -8,6 +8,9 @@ from datetime import datetime
 
 
 env.hosts = ['wisvem.tech', 'ws2.wisvem.tech']
+# env.hosts = ['e98e448bd522@7e5652f1.hbtn-cod.io:22']
+# env.passwords = {'e98e448bd522@7e5652f1.hbtn-cod.io:22':\
+#  'f372b89afe065fa3d645'}
 
 
 def do_pack():
@@ -32,14 +35,14 @@ def do_deploy(archive_path):
         fn = "{}".format(archive_path.split('/')[1])
         # File name withou extension
         fn_nex = fn.split('.')[0]
-        r_path = "/data/web_static/releases/{}".format(fn_nex)
         with cd('/tmp'):
             put(archive_path, fn)
         run("mkdir -p /data/web_static/releases/{}".format(fn_nex))
+        r_path = "/data/web_static/releases/{}".format(fn_nex)
         run("tar -xzf /tmp/{} -C {}".format(fn, r_path))
         run("rm /tmp/{}".format(fn))
         r_p2 = "/data/web_static/releases/"
-        run("mv {}{}/web_static/* {}/".format(r_p2, fn_nex, r_path))
+        run("mv {}/{}/web_static/* {}/".format(r_p2, fn_nex, r_path))
         run("rm -rf {}/web_static".format(r_path))
         run("rm -rf /data/web_static/current")
         run("ln -s {} /data/web_static/current".format(r_path))
