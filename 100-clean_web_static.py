@@ -64,6 +64,6 @@ def do_clean(number=0):
     else:
         number = int(number)+1
     r_path = "/data/web_static/releases/"
-    l_path = "versions/"
+    l_path = "./versions/"
     local("ls -1t {} | tail -n +{} | xargs rm -rf --".format(l_path, number))
     run("ls -1t {} | tail -n +{} | xargs rm -rf --".format(r_path, number))
