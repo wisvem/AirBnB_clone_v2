@@ -7,9 +7,6 @@ package { 'nginx':
 
 -> file { '/data':
   ensure  => directory,
-  owner   => 'ubuntu',
-  group   => 'ubuntu',
-  recurse => true
 }
 
 # create direcotries /data/web_static/shared/
@@ -20,35 +17,35 @@ package { 'nginx':
 
 # create direcotries /data/web_static/shared/
 -> file { '/data/web_static/shared':
-  ensure => directory,
-  owner  => 'ubuntu'
+  ensure => directory
 }
 
 # create direcotries /data/web_static/shared/
 -> file { '/data/web_static/releases':
-  ensure => directory,
-  owner  => 'ubuntu'
+  ensure => directory
 }
 
 # create direcotries /data/web_static/shared/
 -> file { '/data/web_static/releases/test':
   ensure => directory,
-  owner  => 'ubuntu'
 }
 
 -> file { '/data/web_static/releases/test/index.html':
   ensure  => present,
   content => 'Holberton School',
-  owner   => 'ubuntu',
-  group   => 'ubuntu'
 }
 
 -> exec { 'symbolik link':
   command  => 'ln -snf /data/web_static/releases/test/ /data/web_static/current',
-  user     => 'ubuntu',
+  user     => 'root',
   provider => 'shell'
 }
 
+-> exec { 'Set permission':
+  command  => 'chown -R ubuntu:ubuntu /data/',
+  user     => 'root'
+  provider => 'shell'
+}
 -> exec { 'Added location':
   command  => 'sed -i "48i location /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n" /etc/nginx/sites-available/default',
   user     => 'root',
