@@ -66,7 +66,7 @@ def do_clean(number=0):
             else:
                 number = int(number)+1
         except:
-            return
+            return None
         r_path = "/data/web_static/releases/"
         l_path = "./versions"
         with cd(r_path):
