@@ -69,3 +69,7 @@ class DBStorage:
         Base.metadata.create_all(self.__engine)
         presession = sessionmaker(bind=self.__engine, expire_on_commit=False)
         self.__session = scoped_session(presession)
+
+    def close(self):
+        """ method for deserializing the JSON file to objects """
+        self.__session.remove()
