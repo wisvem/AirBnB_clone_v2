@@ -9,6 +9,10 @@ app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
+@app.teardown_appcontext
+def teardown(exception=None):
+    """ Teardown """
+    storage.close()
 
 
 @app.route('/states_list')
