@@ -16,6 +16,11 @@ def teardown():
 
 @app.route('/states_list')
 def task8():
+    all_states = storage.all(State)
+    for state_id, state in all_states.items():
+    for city in state.cities:
+        print("Find the city {} in the state {}".format(city, state))
+
     return render_template('7-states_list.html')
 
 
