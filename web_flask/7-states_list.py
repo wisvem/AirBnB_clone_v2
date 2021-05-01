@@ -4,6 +4,7 @@ from flask import Flask, render_template as render
 from models import storage
 from models.state import State
 from models.city import City
+from bisect import insort
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -18,10 +19,14 @@ def teardown(exception=None):
 @app.route('/states_list')
 def task8():
     states = ""
+    state_list = []
     all_states = storage.all(State)
     for state in all_states.values():
-        states += '\n\t<li>{}: <b>{}</b></li>\n'.format(state.id, state.name)
-        print(states)
+        insort(state_list, "{},{}".format(state.name, state.id))
+    for i in state_list:
+        _id = i.split(',')[1]
+        _name = i.split(',')[0]
+        states += '\n\t<li>{}: <b>{}</b></li>\n'.format(_id, _name)
     return render('7-states_list.html', states=states)
 
 
