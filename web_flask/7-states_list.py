@@ -11,7 +11,7 @@ app.url_map.strict_slashes = False
 @app.teardown_appcontext
 def teardown():
     """ Teardown """
-    models.storage.close()
+    storage.close()
 
 
 @app.route('/states_list')
@@ -65,4 +65,4 @@ def task6(n):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(port=5000, debug=True)
