@@ -18,11 +18,11 @@ def hbnb():
     return 'HBNB'
 
 
-@app.route('/c/<name>')
+@app.route('/c/<var>')
 def c(var):
     """ Task 2 """
-    return 'C {}'.format(name)
+    return 'C {}'.format(var).replace('_', ' ')
 
 
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=5000, debug=True)
