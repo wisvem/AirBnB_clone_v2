@@ -40,7 +40,7 @@ def task4(n):
 @app.route('/number_template/<int:n>')
 def task5(n):
     """ Task 5 """
-    return render_template('5-number.html', value=n)
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
