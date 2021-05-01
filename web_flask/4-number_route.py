@@ -30,10 +30,12 @@ def task3(var="is cool"):
     """ Task 3 """
     return 'Python {}'.format(var).replace('_', ' ')
 
+
 @app.route('/number/<int:n>')
 def task4(n):
     """ Task 4 """
     return "{} is a number".format(n)
+
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

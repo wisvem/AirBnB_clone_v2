@@ -13,9 +13,11 @@ def teardown():
     """ Teardown """
     models.storage.close()
 
+
 @app.route('/states_list')
 def task8():
     return render_template('7-states_list.html')
+
 
 @app.route('/')
 def task0():
