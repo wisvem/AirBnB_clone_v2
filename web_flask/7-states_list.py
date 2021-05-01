@@ -2,26 +2,23 @@
 """ 6. Odd or even? """
 from flask import Flask, render_template as render
 from models import storage
-
+from models.state import State
+from models.city import City
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
-@app.teardown_appcontext
-def teardown():
-    """ Teardown """
-    storage.close()
 
 
 @app.route('/states_list')
 def task8():
+    states = ""
     all_states = storage.all(State)
-    for state_id, state in all_states.items():
-    for city in state.cities:
-        print("Find the city {} in the state {}".format(city, state))
-
-    return render_template('7-states_list.html')
+    for state in all_states.values():
+        states += '\n\t<li>{}: <b>{}</b></li>\n'.format(state.id, state.name)
+        print(states)
+    return render('7-states_list.html', states=states)
 
 
 @app.route('/')
