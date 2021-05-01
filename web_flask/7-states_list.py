@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 """ 6. Odd or even? """
 from flask import Flask, render_template as render
-import models
+from models import storage
+
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
