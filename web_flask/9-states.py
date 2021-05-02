@@ -70,8 +70,8 @@ def cities_by_states():
     return render('8-cities_by_states.html', cities=cities)
 
 
-@app.route('/states', defaults={'id': None})
-@app.route('/states/<id>')
+@app.route('/states_old2', defaults={'id': None})
+@app.route('/states_old2/<id>')
 def _states(id):
     """ States list whit filter """
     if id is None:
@@ -135,6 +135,31 @@ def states_list2(id):
         status = "\n\t<h1>State: {}</h1>\n\t<h3>Cities:</h3>".format(
             city_list[0].split(',')[0])
     return render('9-states.html', cities=cities, status=status)
+
+
+@app.route('/states')
+@app.route('/states/<id>')
+def states_state(id=""):
+    """ displays a HTML page with a list of cities by states """
+    states = all_states.values()
+    states = sorted(states, key=lambda k: k.name)
+    found = 0
+    state = ""
+    cities = []
+
+    for i in states:
+        if id == i.id:
+            state = i
+            found = 1
+            break
+    if found:
+        states = sorted(state.cities, key=lambda k: k.name)
+        state = state.name
+
+    if id and not found:
+        found = 2
+
+    return render('9-states.html', state=state, array=states, found=found)
 
 
 if __name__ == '__main__':
