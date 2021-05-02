@@ -4,7 +4,25 @@
     <title>HBNB</title>
   </head>
   <body>
-    {{ status | safe }}
-    {{ cities | safe }}
+    {% if (_id == 'No') %}
+      <h1>Not found!</h1>
+    {% endif %}
+    {% if (_id == None) %}
+    <h1>States:</h1>
+    <ul>
+      {% for i in state_list %}
+      <li>{{ i.split(',')[1] }}-{{ i.split(',')[0] }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% if (_id != None) %}
+      <h1>State: {{ s_name }}</h1>
+      <H3>Cities:</H3>
+      <ul>
+        {% for i in c_list %}
+        <li>{{ i.split(',')[1] }}-{{ i.split(',')[0] }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}  
   </body>
 </html>

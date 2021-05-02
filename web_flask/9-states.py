@@ -72,6 +72,25 @@ def cities_by_states():
 
 @app.route('/states', defaults={'id': None})
 @app.route('/states/<id>')
+def _states(id):
+    """ States list whit filter """
+    if id is None:
+        states = ""
+        state_list = []
+        for state in all_states.values():
+            insort(state_list, "{},{}".format(state.name, state.id))
+        return render('9-states.html', _id=id, state_list=state_list)
+    else:
+        city_list = []
+        for state in all_states.values():
+            if state.id == id:
+                for city in state.cities:
+                    insort(city_list, "{}.{}".format(city.name, city.id))
+                return render('9-states.html', _id=id, s_name=state.name, c_list=city_list)
+        return render('9-states.html', _id='No')
+
+@app.route('/states_old', defaults={'id': None})
+@app.route('/states_old/<id>')
 def states_list2(id):
     """ States list whit filter """
     if id is None:
