@@ -88,19 +88,22 @@ def states_list2(id):
         return render('9-states.html', status=states)
 
     city_list = []
+    state_id = ""
+    cities = ""
+    status = "\n\t<h1>Not found!</h1>"
     for state in all_states.values():
         if state.id == id:
             if len(state.cities) is 0:
                 insort(city_list, "{},{},{},{}".format(
                     state.name, "", "", state.id))
+                status = "\n\t<h1>State: {}</h1>\n\t<h3>Cities:</h3>\n\t<ul>\n\t</ul>".format(
+                    state.name)
             else:
                 for city in state.cities:
                     insort(city_list, "{},{},{},{}".format(
                         state.name, city.name, city.id, state.id))
             break
-    state_id = ""
-    cities = ""
-    status = "\n\t<h1>Not found!</h1>"
+
     for i in city_list:
         city_id = i.split(',')[2]
         city_name = i.split(',')[1]
