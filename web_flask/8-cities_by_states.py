@@ -48,7 +48,7 @@ def cities_by_states():
             city_id = i.split(',')[2]
             city_name = i.split(',')[1]
             if city_list.index(i) is not 0:
-                cities += "\n\t\t</ul>"
+                cities += "\n\t\t</ul>\n\t</li>"
             cities += '\n\t<li>{}: <b>{}</b>\n\t\t<ul>'.format(
                 state_id, state_name)
             cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
@@ -58,6 +58,7 @@ def cities_by_states():
             city_name = i.split(',')[1]
             cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
                 city_id, city_name)
+    cities += "\n\t\t</ul>\n\t</li>"
     return render('8-cities_by_states.html', cities=cities)
 
 
