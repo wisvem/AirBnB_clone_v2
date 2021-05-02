@@ -25,8 +25,6 @@ def teardown(exception=None):
 @app.route('/hbnb')
 def hbnb():
     """Task 12 """
-    for k,v in all_places.items():
-        print(v)
     return render('100-hbnb.html', all_states=all_states,
                   all_amenities=all_amenities, all_places=all_places)
 
