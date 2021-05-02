@@ -85,7 +85,7 @@ def _states(id):
         for state in all_states.values():
             if state.id == id:
                 for city in state.cities:
-                    insort(city_list, "{}.{}".format(city.name, city.id))
+                    insort(city_list, "{},{}".format(city.name, city.id))
                 return render('9-states.html', _id=id, s_name=state.name, c_list=city_list)
         return render('9-states.html', _id='No')
 
