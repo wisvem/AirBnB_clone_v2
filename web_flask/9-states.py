@@ -86,6 +86,7 @@ def states_list2(id):
         if len(state_list) is not 0:
             states = "\n\t<h1>States</h1>\n\t<ul>\n{}\n\t</ul>".format(states)
         return render('9-states.html', status=states)
+
     city_list = []
     for state in all_states.values():
         if state.id == id:
@@ -107,8 +108,8 @@ def states_list2(id):
             cities += '\n\t\t<li>{}: <b>{}</b></li>\n'.format(
                 city_id, city_name)
     if len(cities) is not 0:
-        cities = "\t<ul>\n{}\n\t</ul>".format(cities)
-        status = "\t<h1>State: {}</h1>\n\t<h3>Cities:</h3>\n".format(
+        cities = "\t<ul>\n{}\n\t</ul>\n".format(cities)
+        status = "\n\t<h1>State: {}</h1>\n\t<h3>Cities:</h3>".format(
             city_list[0].split(',')[0])
     return render('9-states.html', cities=cities, status=status)
 
