@@ -37,9 +37,14 @@ def cities_by_states():
     all_states = storage.all(State)
     # Create a sorted list of states
     for state in all_states.values():
-        for city in state.cities:
+        if len(state.cities) is 0:
             insort(city_list, "{},{},{},{}".format(
-                state.name, city.name, city.id, state.id))
+                state.name, "", "", state.id))
+        else:
+            for city in state.cities:
+                insort(city_list, "{},{},{},{}".format(
+                    state.name, city.name, city.id, state.id))
+
     state_id = ""
     for i in city_list:
         if state_id != i.split(',')[3]:
@@ -51,13 +56,15 @@ def cities_by_states():
                 cities += "\n\t\t</ul>\n\t</li>"
             cities += '\n\t<li>{}: <b>{}</b>\n\t\t<ul>'.format(
                 state_id, state_name)
-            cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
-                city_id, city_name)
+            if city_id != "":
+                cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
+                    city_id, city_name)
         else:
             city_id = i.split(',')[2]
             city_name = i.split(',')[1]
-            cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
-                city_id, city_name)
+            if city_id != "":
+                cities += '\n\t\t\t<li>{}: <b>{}</b></li>\n'.format(
+                    city_id, city_name)
     cities += "\n\t\t</ul>\n\t</li>"
     return render('8-cities_by_states.html', cities=cities)
 
