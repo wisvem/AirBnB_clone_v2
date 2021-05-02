@@ -89,6 +89,7 @@ def _states(id):
                 return render('9-states.html', _id=id, s_name=state.name, c_list=city_list)
         return render('9-states.html', _id='No')
 
+
 @app.route('/states_old', defaults={'id': None})
 @app.route('/states_old/<id>')
 def states_list2(id):
