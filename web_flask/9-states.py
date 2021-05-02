@@ -75,7 +75,17 @@ def cities_by_states():
 def states_list2(id):
     """ States list whit filter """
     if id is None:
-        return states_list()
+        states = ""
+        state_list = []
+        for state in all_states.values():
+            insort(state_list, "{},{}".format(state.name, state.id))
+        for i in state_list:
+            _id = i.split(',')[1]
+            _name = i.split(',')[0]
+            states += '\n\t\t<li>{}: <b>{}</b></li>\n'.format(_id, _name)
+        if len(state_list) is not 0:
+            states = "\n\t<h1>States</h1>\n\t<ul>\n{}\n\t</ul>".format(states)
+        return render('9-states.html', status=states)
     city_list = []
     for state in all_states.values():
         if state.id == id:
