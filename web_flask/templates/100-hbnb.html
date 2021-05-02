@@ -2,12 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="./styles/4-common.css">
-		<link rel="stylesheet" href="./styles/3-header.css">
-		<link rel="stylesheet" href="./styles/3-footer.css">
-		<link rel="shortcut icon" href="./images/icon.png">
-		<link rel="stylesheet" href="./styles/6-filters.css">
-		<link rel="stylesheet" href="./styles/8-places.css">
+		<link rel="stylesheet" href="../static/styles/4-common.css">
+		<link rel="stylesheet" href="../static/styles/3-header.css">
+		<link rel="stylesheet" href="../static/styles/3-footer.css">
+		<link rel="shortcut icon" href="../static/images/icon.png">
+		<link rel="stylesheet" href="../static/styles/6-filters.css">
+		<link rel="stylesheet" href="../static/styles/8-places.css">
 		<title>Airbnb clone</title>
 	</head>
 	<body>
@@ -16,118 +16,68 @@
 		<div class="container">
 			<section class="filters">
 				<div class="locations">
-					<h3>States</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
-						<li><h2>Arizona:</h2>
-							<ul>
-								<li>Orejona</li>
-								<li>Cabezona</li>
-							</ul>
-						</li>
-						<li><h2>California:</h2>
-							<ul>
-								<li>Coliflornia</li>
-								<li>Cilantrornia</li>
-							</ul>
-						</li>
-					</ul>
+				  <h3>States</h3>
+				  <h4>&nbsp;</h4>
+				  <ul class="popover">
+					  {% for key, state in all_states.items() %}
+					  <li><h2>{{ state.name }}:</h2>
+						<ul>
+							{% for city in state.cities %}
+							<li>{{ city.name }}</li>
+							{% endfor %}
+						</ul>
+					  </li>
+					  {% endfor %}
+				  </ul>
 				</div>
 				<div class="amenities">
-					<h3>Amenities</h3>
-					<h4>&nbsp;</h4>
-					<ul class="popover">
-						<li><p>Internet</p></li>
-						<li><p>TV</p></li>
-						<li><p>Kitchen</p></li>
-						<li><p>Iron</p></li>
-					</ul>
+				  <h3>Amenities</h3>
+				  <h4>&nbsp;</h4>
+				  <ul class="popover">
+					{% for key, amenity in all_amenities.items() %}
+					<li>{{ amenity.name }}</li>
+					{% endfor %}
+				  </ul>
 				</div>
 				<button>Search</button>
-			</section>
+			  </section>
 			<section class="places">
 				<h1>Places</h1>
+				{% for k, place in all_places.items() %}
 				<article>
-					<h2>My home</h2>
+					<h2>{{ place.name }}</h2>
 					<div class="price_by_night">
-						<p>$80</p>
+						<p>{{ place.price_by_night }}</p>
 					</div>
 					<div class="information">
 						<div class="max_guest">
-							<p>2 guest</p>
+							<p>{{ place.max_guest }}</p>
 						</div>
 						<div class="number_rooms">
-							<p>1 Bedroom</p>
+							{% if (place.number_rooms == 1 ) %}
+							<p>{{ place.number_rooms }} Room</p>
+							{% else %}
+							<p>{{ place.number_rooms }} Rooms</p>
+							{% endif %}
 						</div>
 						<div class="number_bathrooms">
-							<p>1 Bathroom</p>
+							{% if (place.number_bathrooms == 1 ) %}
+							<p>{{ place.number_bathrooms }} Bathroom</p>
+							{% else %}
+							<p>{{ place.number_rooms }} Bathrooms</p>
+							{% endif %}
 						</div>
 					</div>
 					<div class="user">
-						<p><span>Owner: </span>John Lennon</p>
+						<p><span>Owner: </span>{{ place.user.first_name }} {{ place.user.last_name }}</p>
 					</div>
 					<div class="description">
 						<p>
-							This is a lovely 1 bedroom and 1 bathroom apartment that can accomadate 2 people.
-							It locates at the center of Shanghai and next to subway line 1,
-							1 stop to People Square, 2 stops to Bud, 3 stops to Jinga Temple
+							{{ place.description | safe }}
 						</p>
 					</div>
 				</article>
-				<article>
-					<h2>Tiny house</h2>
-					<div class="price_by_night">
-						<p>$65</p>
-					</div>
-					<div class="information">
-						<div class="max_guest">
-							<p>2 guest</p>
-						</div>
-						<div class="number_rooms">
-							<p>1 Bedroom</p>
-						</div>
-						<div class="number_bathrooms">
-							<p>1 Bathroom</p>
-						</div>
-					</div>
-					<div class="user">
-						<p><span>Owner: </span>John Lennon</p>
-					</div>
-					<div class="description">
-						<p>
-							This is a lovely 1 bedroom and 1 bathroom apartment that can accomadate 2 people.
-							It locates at the center of Shanghai and next to subway line 1,
-							1 stop to People Square, 2 stops to Bud, 3 stops to Jinga Temple
-						</p>
-					</div>
-				</article>
-				<article>
-					<h2>A suite</h2>
-					<div class="price_by_night">
-						<p>$190</p>
-					</div>
-					<div class="information">
-						<div class="max_guest">
-							<p>2 guest</p>
-						</div>
-						<div class="number_rooms">
-							<p>1 Bedroom</p>
-						</div>
-						<div class="number_bathrooms">
-							<p>1 Bathroom</p>
-						</div>
-					</div>
-					<div class="user">
-						<p><span>Owner: </span>John Lennon</p>
-					</div>
-					<div class="description">
-						<p>
-							This is a lovely 1 bedroom and 1 bathroom apartment that can accomadate 2 people.
-							It locates at the center of Shanghai and next to subway line 1,
-							1 stop to People Square, 2 stops to Bud, 3 stops to Jinga Temple
-						</p>
-					</div>
-				</article>
+				{% endfor %}
 			</section>
 		</div>
 		<footer>

@@ -1,26 +1,35 @@
 #!/usr/bin/python3
-""" Task 10 """
+""" Task 12 """
 from models import storage
 from models.state import State
+from models.place import Place
+from models.amenity import Amenity
 from flask import Flask, render_template as render
-
+from bisect import insort
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 
+all_states = storage.all(State)
+all_amenities = storage.all(Amenity)
+all_places = storage.all(Place)
+
+
 @app.teardown_appcontext
-def close_db(error):
-    """ Remove the current SQLAlchemy Session """
+def teardown(exception=None):
+    """ Teardown """
     storage.close()
 
 
-@app.route('/hbnb_filters')
+@app.route('/hbnb')
 def hbnb():
-    """Task 10 """
-    render('100-hbnb.py')
+    """Task 12 """
+    for k,v in all_places.items():
+        print(v)
+    return render('100-hbnb.html', all_states=all_states,
+                  all_amenities=all_amenities, all_places=all_places)
 
 
 if __name__ == "__main__":
-    """ Main Function """
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True, port=5000)
