@@ -32,6 +32,7 @@ def states_list():
 
 @app.route('/cities_by_states')
 def cities_by_states():
+    """ Cities by state """
     cities = ""
     city_list = []
     all_states = storage.all(State)
