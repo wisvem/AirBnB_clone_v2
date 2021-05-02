@@ -89,7 +89,7 @@ def states_list2(id):
             break
     state_id = ""
     cities = ""
-    status = "Not found!"
+    status = "\n\t<h1>Not found!</h1>"
     for i in city_list:
         city_id = i.split(',')[2]
         city_name = i.split(',')[1]
@@ -98,7 +98,6 @@ def states_list2(id):
                 city_id, city_name)
     if len(cities) is not 0:
         cities = "\t<ul>\n{}\n\t</ul>".format(cities)
-
         status = "\t<h1>State: {}</h1>\n\t<h3>Cities:</h3>\n".format(
             city_list[0].split(',')[0])
     return render('9-states.html', cities=cities, status=status)
