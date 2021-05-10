@@ -45,9 +45,11 @@
 				<h1>Places</h1>
 				{% for k, place in all_places.items() %}
 				<article>
-					<h2>{{ place.name }}</h2>
-					<div class="price_by_night">
-						<p>{{ place.price_by_night }}</p>
+					<div class="title_price">
+						<h2>{{ place.name }}</h2>
+						<div class="price_by_night">
+							<p>{{ place.price_by_night }}</p>
+						</div>
 					</div>
 					<div class="information">
 						<div class="max_guest">
